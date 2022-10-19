@@ -19,9 +19,9 @@
                 <%--una forma de ocultar mediante css--%>
             </Columns>
         </asp:GridView>
-        <h2>Repiter</h2>
-        <table class="table">
 
+        <h2>Repiter</h2>
+        <table class="table table-striped">
             <tbody>
                 <asp:Repeater ID="rep_repetidor" runat="server">
                     <HeaderTemplate>
@@ -30,31 +30,47 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Codigo</th>
                                 <th scope="col">Articulo</th>
+                                <th scope="col">Imagen</th>
                             </tr>
                         </thead>
                     </HeaderTemplate>
                     <ItemTemplate>
                         <tr>
                             <th scope="row"><%#DataBinder.Eval(Container.DataItem, "_Id") %></th>
-                            <td></td>
                             <td><%#DataBinder.Eval(Container.DataItem, "_codArticulo") %></td>
+                            <td>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <tr>
+                                            <td scope="row"><%#DataBinder.Eval(Container.DataItem, "_nombre") %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Precio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <tr>
+                                            <td><%#DataBinder.Eval(Container.DataItem, "_precio") %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
                             <td><asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' /></td>
-                            <td><asp:Button Text="Seleccionar?" runat="server" Enabled="false" /></td>
+                            <td><asp:Button Text="Seleccionar?" runat="server" Enabled="false" /></td>            
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
             </tbody>
         </table>
-        <%--<table class="table">
-            <tbody>
-                <tr>
-                    <th scope="row"><%#DataBinder.Eval(Container.DataItem, "_Id") %></th>
-                    <td><%#DataBinder.Eval(Container.DataItem, "_codArticulo") %></td>
-                    <td>
-                        <asp:Button Text="Seleccionar" runat="server" Enabled="false" /></td>
-                </tr>
-            </tbody>
-        </table>--%>
     </div>
 
 </asp:Content>

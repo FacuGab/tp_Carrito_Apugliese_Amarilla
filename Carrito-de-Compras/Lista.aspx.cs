@@ -15,6 +15,7 @@ namespace Carrito_de_Compras
         private List<Articulo> listaArticulo;
         protected void Page_Load(object sender, EventArgs e)
         {
+
             negocio = new NegocioArticulo();
             if(!IsPostBack) // por si hay postback, ver ... 
             {
@@ -28,9 +29,8 @@ namespace Carrito_de_Compras
                 {
                     Session.Add("Lista", listaArticulo);
                 }
-
             }
-            
+
         }
     }
 }
