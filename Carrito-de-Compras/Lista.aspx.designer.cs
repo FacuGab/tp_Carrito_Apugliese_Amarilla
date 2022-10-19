@@ -11,7 +11,16 @@ namespace Carrito_de_Compras
 {
 
 
-    public partial class Default
+    public partial class Lista
     {
+
+        /// <summary>
+        /// dgw_tabla control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgw_tabla;
     }
 }

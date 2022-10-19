@@ -24,18 +24,29 @@ namespace Negocio
                 while (_accesoDatos._lector.Read())
                 {
                     _articulo = new Articulo();
-
                     _articulo._Id = (int)_accesoDatos._lector["Id"];
-                    if(!(_accesoDatos._lector["Codigo"] is DBNull)) _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
+                    //
+                    if (!_accesoDatos._lector.IsDBNull(1))
+                        if(!(_accesoDatos._lector["Codigo"] is DBNull)) 
+                            _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
+                    //
                     _articulo._categoria._Id = (int)_accesoDatos._lector["IdCategoria"];
-                    if (!(_accesoDatos._lector["Categoria"] is DBNull)) _articulo._categoria._Descripcion = (string)_accesoDatos._lector["Categoria"];
-                    else _articulo._categoria._Descripcion = "";
+                    if (!(_accesoDatos._lector["Categoria"] is DBNull)) 
+                        _articulo._categoria._Descripcion = (string)_accesoDatos._lector["Categoria"];
+                    else 
+                        _articulo._categoria._Descripcion = "";
                     _articulo._marca._Id = (int)_accesoDatos._lector["IdMarca"];
-                    if(!(_accesoDatos._lector["Marca"] is DBNull))_articulo._marca._Descripcion = (string)_accesoDatos._lector["Marca"];
-                    if(!(_accesoDatos._lector["Nombre"] is DBNull))_articulo._nombre = (string)_accesoDatos._lector["Nombre"];
-                    if(!(_accesoDatos._lector["Descripcion"] is DBNull))_articulo._descripcion = (string)_accesoDatos._lector["Descripcion"];
-                    if (!(_accesoDatos._lector["Precio"] is DBNull)) _articulo._precio = (decimal)_accesoDatos._lector["Precio"];
-                    if (!(_accesoDatos._lector["ImagenUrl"] is DBNull)) _articulo._urlImagen = (string)_accesoDatos._lector["ImagenUrl"];
+                    if(!(_accesoDatos._lector["Marca"] is DBNull))
+                        _articulo._marca._Descripcion = (string)_accesoDatos._lector["Marca"];
+                    if(!(_accesoDatos._lector["Nombre"] is DBNull))
+                        _articulo._nombre = (string)_accesoDatos._lector["Nombre"];
+                    if(!(_accesoDatos._lector["Descripcion"] is DBNull))
+                        _articulo._descripcion = (string)_accesoDatos._lector["Descripcion"];
+                    if (!(_accesoDatos._lector["Precio"] is DBNull)) 
+                        _articulo._precio = (decimal)_accesoDatos._lector["Precio"];
+                    if (!(_accesoDatos._lector["ImagenUrl"] is DBNull))
+                        _articulo._urlImagen = (string)_accesoDatos._lector["ImagenUrl"];
+
                     _articulo.redondear(2);
                     _listaArticulos.Add(_articulo);
                 }

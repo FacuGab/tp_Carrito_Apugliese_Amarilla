@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carrito-de-Compras", "Carrito-de-Compras\Carrito-de-Compras.csproj", "{859EDAA1-F342-4CA4-A017-D00708AAD6CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{A6185921-7BDB-4FAA-B278-3EFE794A2509}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{70B4C768-375F-4F12-B187-1A3439CEB837}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{859EDAA1-F342-4CA4-A017-D00708AAD6CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{859EDAA1-F342-4CA4-A017-D00708AAD6CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{859EDAA1-F342-4CA4-A017-D00708AAD6CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6185921-7BDB-4FAA-B278-3EFE794A2509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6185921-7BDB-4FAA-B278-3EFE794A2509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6185921-7BDB-4FAA-B278-3EFE794A2509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6185921-7BDB-4FAA-B278-3EFE794A2509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B4C768-375F-4F12-B187-1A3439CEB837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B4C768-375F-4F12-B187-1A3439CEB837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B4C768-375F-4F12-B187-1A3439CEB837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B4C768-375F-4F12-B187-1A3439CEB837}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
