@@ -23,7 +23,8 @@ namespace Negocio
             // server por defecto serverDef1 = . 
             // sgundo server por defecto serverDef3 = .\\SQLEXPRESS
             string server = ConfigurationManager.AppSettings["serverDef1"];
-            cadenaConexion = "server="+server+";database = CATALOGO_DB; integrated security = true";
+            //cadenaConexion = "server="+server+";database = CATALOGO_DB; integrated security = true";
+            cadenaConexion = "server=.\\SQLEXPRESS01;database = CATALOGO_DB; integrated security = true";
             try
             {
                 _conexion = new SqlConnection(cadenaConexion);

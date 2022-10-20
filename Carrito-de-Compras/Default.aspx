@@ -15,7 +15,7 @@
                 <ItemTemplate>
                     <div class="col" style="padding-bottom: 10px;">
                         <div class="card" style="width: 18rem;">
-                            <img src="<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>" class="card-img-top" alt="Imagen Default">
+                            <img src="<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>" class="card-img-top" alt="Imagen Default" style="width: 100%; height: 40vh; object-fit: contain;">
                             <div class="card-body">
                                 <h5 class="card-title"><%#DataBinder.Eval(Container.DataItem, "_nombre")%></h5>
                                 <p class="card-text"><%#DataBinder.Eval(Container.DataItem, "_descripcion")%></p>
