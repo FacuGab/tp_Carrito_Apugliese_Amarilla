@@ -6,15 +6,15 @@
 
     <div class="container text-center">
         <h2>ARTICULOS</h2>
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
 
             <!-- Repiter -->
             <asp:Repeater ID="rep_ListaDefautl" runat="server">
                 <ItemTemplate>
-                    <div class="col-sm-6" style="padding-bottom: 10px;">
+                    <div class="col" style="padding-bottom: 10px;">
                         <div class="card" style="width: 18rem;">
                             <img src="<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>" class="card-img-top" alt="Imagen Default">
-                            <div class="card-body align-content-center">
+                            <div class="card-body">
                                 <h5 class="card-title"><%#DataBinder.Eval(Container.DataItem, "_nombre")%></h5>
                                 <p class="card-text"><%#DataBinder.Eval(Container.DataItem, "_descripcion")%></p>
                             </div>
@@ -24,8 +24,7 @@
                                 <li class="list-group-item">Marca: <%#DataBinder.Eval(Container.DataItem, "_marca._Descripcion")%></li>
                             </ul>
                             <div class="card-body">
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                                <asp:Button ID="btn_AgregarArt" Text="Agregar a Carrito" CssClass="btn btn-primary" runat="server" CommandArgument='<%#Eval("_id") %>' CommandName="ArtId" OnClick="btn_AgregarArt_Click"/>
                             </div>
                         </div>
                     </div>

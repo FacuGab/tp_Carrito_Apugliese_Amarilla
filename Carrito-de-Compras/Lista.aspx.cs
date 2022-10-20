@@ -20,15 +20,8 @@ namespace Carrito_de_Compras
             if(!IsPostBack) // por si hay postback, ver ... 
             {
                 listaArticulo = negocio.listarArticulos();
-                dgw_tabla.DataSource = listaArticulo;
-                dgw_tabla.DataBind();
                 rep_repetidor.DataSource = listaArticulo;
                 rep_repetidor.DataBind();
-
-                if(Session["Lista"] == null)
-                {
-                    Session.Add("Lista", listaArticulo);
-                }
             }
 
         }

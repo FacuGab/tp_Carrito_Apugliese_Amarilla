@@ -6,21 +6,9 @@
 
     <div class="container text-center">
         <hr />
-        <h2>Lista Articulos</h2>
-        <asp:GridView ID="dgw_tabla" CssClass="table table-bordered table-dark" AutoGenerateColumns="false" runat="server">
-            <Columns>
-                <asp:BoundField HeaderText="Codigo" DataField="_codArticulo" />
-                <asp:BoundField HeaderText="Nombre" DataField="_nombre" />
-                <asp:BoundField HeaderText="Descripcion" DataField="_descripcion" />
-                <asp:BoundField HeaderText="Url de Img" DataField="_urlImagen" />
-                <%--<asp:ImageField DataImageUrlField="<%:  %>" />--%>
-                <asp:BoundField HeaderText="Precio" DataField="_precio" />
-                <%--<asp:BoundField HeaderText="Id" DataField="Id" HeaderStyle-CssClass="ocultar" ItemStyle-CssClass="ocultar" />--%>
-                <%--una forma de ocultar mediante css--%>
-            </Columns>
-        </asp:GridView>
+        <h1>Lista Carrito</h1>
 
-        <h2>Repiter</h2>
+        <h2>Su Lista:</h2>
         <table class="table table-striped">
             <tbody>
                 <asp:Repeater ID="rep_repetidor" runat="server">
@@ -65,7 +53,7 @@
                                 </table>
                             </td>
                             <td><asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' /></td>
-                            <td><asp:Button Text="Seleccionar?" runat="server" Enabled="false" /></td>            
+                            <td><asp:Button Text="Eliminar" runat="server" Enabled="false" /></td>            
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -74,3 +62,16 @@
     </div>
 
 </asp:Content>
+
+        <%--<asp:GridView ID="dgw_tabla" CssClass="table table-bordered table-dark" AutoGenerateColumns="false" runat="server">
+            <Columns>
+                <asp:BoundField HeaderText="Codigo" DataField="_codArticulo" />
+                <asp:BoundField HeaderText="Nombre" DataField="_nombre" />
+                <asp:BoundField HeaderText="Descripcion" DataField="_descripcion" />
+                <asp:BoundField HeaderText="Url de Img" DataField="_urlImagen" />
+                <%--<asp:ImageField DataImageUrlField="<%:  %>" />--%>
+                <%--<asp:BoundField HeaderText="Precio" DataField="_precio" />--%>
+                <%--<asp:BoundField HeaderText="Id" DataField="Id" HeaderStyle-CssClass="ocultar" ItemStyle-CssClass="ocultar" />--%>
+                <%--una forma de ocultar mediante css--%>
+             <%--</Columns>
+        </asp:GridView>--%>
