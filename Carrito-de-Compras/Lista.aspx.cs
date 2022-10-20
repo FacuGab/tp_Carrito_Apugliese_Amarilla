@@ -12,28 +12,38 @@ namespace Carrito_de_Compras
 {
     public partial class Lista : System.Web.UI.Page
     {
-        private List<Articulo> listaSeleccionados;
-        private List<Articulo> listaMostrar;
+        private List<Articulo> lista;
+        private List<Articulo> listaCarrito;
         public int repetido { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             
             if(!IsPostBack) // por si hay postback, ver ... 
             {
-                if (Session["listaMostrar"] == null)
+                if (Session["listaCarrito"] == null)
                 {
-                    Session.Add("listaMostrar", listaMostrar = new List<Articulo>());
-                }
-                listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+                    Session.Add("listaCarrito", new List<Articulo>());
 
-                foreach (Articulo articulo in listaSeleccionados)
+                }
+
+                lista = (List<Articulo>)Session["listaSeleccionados"];
+                if(lista == null)  return;
+                
+                listaCarrito = (List<Articulo>)Session["listaCarrito"];
+
+                foreach (Articulo articulo in lista)
                 {
-                    if (listaMostrar.Exists(itm => itm._Id == articulo._Id))
+                    if (listaCarrito.Exists(itm => itm._Id == articulo._Id))
+                    {
                         repetido += 1;
+                    }
+                    else
+                    {
+                        listaCarrito.Add(articulo);
+                    }
                 }
-                listaMostrar = listaSeleccionados;
 
-                rep_repetidor.DataSource = listaMostrar;
+                rep_repetidor.DataSource = listaCarrito;
                 rep_repetidor.DataBind();
             }
         }
