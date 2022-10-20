@@ -3,13 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <!-- Content -->
     <div class="container text-center">
         <hr />
         <h1>Lista Carrito</h1>
-
         <h2>Su Lista:</h2>
         <h3>Cantidad de articulos: <%:Request.QueryString["cantidad"] %></h3>
+
         <table class="table table-striped">
             <tbody>
                 <asp:Repeater ID="rep_repetidor" runat="server">
@@ -61,7 +61,7 @@
             </tbody>
         </table>
     </div>
-
+    <!-- Fin Content -->
 </asp:Content>
 
         <%--<asp:GridView ID="dgw_tabla" CssClass="table table-bordered table-dark" AutoGenerateColumns="false" runat="server">

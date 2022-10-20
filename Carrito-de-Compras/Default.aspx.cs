@@ -13,17 +13,16 @@ namespace Carrito_de_Compras
     {
         private List<Articulo> listaArticulos;
         private List<Articulo> listaSeleccionados;
-        private NegocioArticulo negocio;
         private int cantidad = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if(!IsPostBack)
             {
-                negocio = new NegocioArticulo();
-                listaArticulos = new List<Articulo>( negocio.listarArticulos() );
+                NegocioArticulo negocio = new NegocioArticulo();
+                listaArticulos = new List<Articulo>( negocio.listarArticulos(0) );
                 rep_ListaDefautl.DataSource = listaArticulos;
                 rep_ListaDefautl.DataBind();
+
                 if(Session.Count == 0)
                 {
                     Session.Add("ListaArticulos", listaArticulos);
@@ -31,22 +30,21 @@ namespace Carrito_de_Compras
                     Session.Add("cantidad", cantidad);
                 }
             }
-            
         }
-
+        
         protected void btn_AgregarArt_Click(object sender, EventArgs e)
         {
-            cantidad += (int)Session["cantidad"];
-            if (Session["listaSeleccionados"] == null || Session["ListaArticulos"] == null) return;
-
-            string select = ((Button)sender).CommandArgument;
-            List<Articulo> list = ((List<Articulo>)Session["ListaArticulos"]);
-
-            listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
-            listaSeleccionados.Add( list[list.FindIndex(itm => itm._Id.ToString() == select)] );
-
-            Session.Add("cantidad", ++cantidad);
             
+            if ( Session["listaSeleccionados"] == null || Session["ListaArticulos"] == null ) return;
+
+            cantidad += (int)Session["cantidad"];
+            string select = ((Button)sender).CommandArgument;
+
+            List<Articulo> list = ((List<Articulo>)Session["ListaArticulos"]);
+            listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+
+            listaSeleccionados.Add( list[list.FindIndex(itm => itm._Id.ToString() == select)] );
+            Session.Add("cantidad", ++cantidad);     
         }
     }
 }

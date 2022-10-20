@@ -97,7 +97,7 @@ insert into ARTICULOS values ('S01', 'Galaxy S10', 'Una canoa cara', 1, 1, 'http
 ('A23', 'Apple TV', 'lindo loro', 2, 3, 'https://cnnespanol2.files.wordpress.com/2015/12/gadgets-mc3a1s-populares-apple-tv-2015-18.jpg?quality=100&strip=info&w=460&h=260&crop=1', 7850)
 
 -- Querys post creacion de BD:
-ALTER TABLE ARTICULOS ADD [Activo] [bit] default 1 NOT NULL
+--ALTER TABLE ARTICULOS ADD [Activo] [bit] default 1 NOT NULL
 
 select * from ARTICULOS
 select * from CATEGORIAS
@@ -119,8 +119,15 @@ SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.D
 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE 'Televisores' AND m.Descripcion LIKE 'Sony' AND a.Precio < 100000
 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE 'Celulares' AND m.Descripcion LIKE 'Samsung' AND a.Precio > 100
 DELETE FROM CATEGORIAS WHERE Id = 5
-ALTER TABLE ARTICULOS DROP COLUMN [Activo]
-DROP TABLE ARTICULOS
+--ALTER TABLE ARTICULOS DROP COLUMN [Activo]
+--DROP TABLE ARTICULOS
+
+-- Stored Procerude script:
+CREATE PROCEDURE SP_Listar AS
+	 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl 
+	 FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id
+EXEC SP_Listar
+
 	--Tabla ARTICULOS:
 	--[Id] [int] IDENTITY(1,1) NOT NULL,
 	--[Codigo] [varchar](50) NULL,

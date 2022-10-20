@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,20 +12,30 @@ namespace Carrito_de_Compras
 {
     public partial class Lista : System.Web.UI.Page
     {
-        private NegocioArticulo negocio;
-        private List<Articulo> listaArticulo;
+        private List<Articulo> listaSeleccionados;
+        private List<Articulo> listaMostrar;
+        public int repetido { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            negocio = new NegocioArticulo();
+            
             if(!IsPostBack) // por si hay postback, ver ... 
             {
-                //listaArticulo = negocio.listarArticulos();
-                //listaArticulo = (List<Articulo>)Session["listaSeleccionados"];
-                rep_repetidor.DataSource = (List<Articulo>)Session["listaSeleccionados"];
+                if (Session["listaMostrar"] == null)
+                {
+                    Session.Add("listaMostrar", listaMostrar = new List<Articulo>());
+                }
+                listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+
+                foreach (Articulo articulo in listaSeleccionados)
+                {
+                    if (listaMostrar.Exists(itm => itm._Id == articulo._Id))
+                        repetido += 1;
+                }
+                listaMostrar = listaSeleccionados;
+
+                rep_repetidor.DataSource = listaMostrar;
                 rep_repetidor.DataBind();
             }
-
         }
     }
 }

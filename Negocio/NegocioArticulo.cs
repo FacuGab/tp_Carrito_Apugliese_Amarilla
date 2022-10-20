@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 using Dominio;
 
 namespace Negocio
@@ -13,23 +14,28 @@ namespace Negocio
 
         //METODOS:
         // Listar Articulos:
-        public List<Articulo> listarArticulos()
+        public List<Articulo> listarArticulos(int param)
         {
+            string query = (param == 0) ?
+                "SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id" :
+                "SP_Lisar";
+            
             _listaArticulos = new List<Articulo>();
             _accesoDatos = new AccesoDatos();
             try
-            {
-                _accesoDatos.setearQuery("SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id");
+            { 
+                _accesoDatos.setearQuery(query);
                 _accesoDatos.ejecutarLectura();
                 while (_accesoDatos._lector.Read())
                 {
                     _articulo = new Articulo();
+                    
+                    //Asignamos valores al obj Articulo:
                     _articulo._Id = (int)_accesoDatos._lector["Id"];
-                    //
-                    if (!_accesoDatos._lector.IsDBNull(1))
-                        if(!(_accesoDatos._lector["Codigo"] is DBNull)) 
-                            _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
-                    //
+                    if(!(_accesoDatos._lector["Codigo"] is DBNull)) 
+                        _articulo._codArticulo = (string)_accesoDatos._lector["Codigo"];
+
+
                     _articulo._categoria._Id = (int)_accesoDatos._lector["IdCategoria"];
                     if (!(_accesoDatos._lector["Categoria"] is DBNull)) 
                         _articulo._categoria._Descripcion = (string)_accesoDatos._lector["Categoria"];
@@ -38,6 +44,8 @@ namespace Negocio
                     _articulo._marca._Id = (int)_accesoDatos._lector["IdMarca"];
                     if(!(_accesoDatos._lector["Marca"] is DBNull))
                         _articulo._marca._Descripcion = (string)_accesoDatos._lector["Marca"];
+
+
                     if(!(_accesoDatos._lector["Nombre"] is DBNull))
                         _articulo._nombre = (string)_accesoDatos._lector["Nombre"];
                     if(!(_accesoDatos._lector["Descripcion"] is DBNull))
