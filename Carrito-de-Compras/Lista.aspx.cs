@@ -19,8 +19,9 @@ namespace Carrito_de_Compras
             negocio = new NegocioArticulo();
             if(!IsPostBack) // por si hay postback, ver ... 
             {
-                listaArticulo = negocio.listarArticulos();
-                rep_repetidor.DataSource = listaArticulo;
+                //listaArticulo = negocio.listarArticulos();
+                //listaArticulo = (List<Articulo>)Session["listaSeleccionados"];
+                rep_repetidor.DataSource = (List<Articulo>)Session["listaSeleccionados"];
                 rep_repetidor.DataBind();
             }
 

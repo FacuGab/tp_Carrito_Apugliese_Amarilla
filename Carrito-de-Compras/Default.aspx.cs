@@ -14,6 +14,7 @@ namespace Carrito_de_Compras
         private List<Articulo> listaArticulos;
         private List<Articulo> listaSeleccionados;
         private NegocioArticulo negocio;
+        private int cantidad = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -23,24 +24,29 @@ namespace Carrito_de_Compras
                 listaArticulos = new List<Articulo>( negocio.listarArticulos() );
                 rep_ListaDefautl.DataSource = listaArticulos;
                 rep_ListaDefautl.DataBind();
-                Session.Add("ListaArt", listaArticulos);
-                Session.Add("listaArticulos", listaSeleccionados = new List<Articulo>() );
+                if(Session.Count == 0)
+                {
+                    Session.Add("ListaArticulos", listaArticulos);
+                    Session.Add("listaSeleccionados", listaSeleccionados = new List<Articulo>());
+                    Session.Add("cantidad", cantidad);
+                }
             }
             
         }
 
         protected void btn_AgregarArt_Click(object sender, EventArgs e)
         {
-
-            if (Session["listaArticulos"] == null || Session["ListaArt"] == null) return;
+            cantidad += (int)Session["cantidad"];
+            if (Session["listaSeleccionados"] == null || Session["ListaArticulos"] == null) return;
 
             string select = ((Button)sender).CommandArgument;
-            List<Articulo> list = ((List<Articulo>)Session["ListaArt"]);
+            List<Articulo> list = ((List<Articulo>)Session["ListaArticulos"]);
 
-            listaSeleccionados = (List<Articulo>)Session["listaArticulos"];
+            listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
             listaSeleccionados.Add( list[list.FindIndex(itm => itm._Id.ToString() == select)] );
 
-            //(Articulo)listaArticulos.Where(itm => itm._Id.ToString() == select)
+            Session.Add("cantidad", ++cantidad);
+            
         }
     }
 }

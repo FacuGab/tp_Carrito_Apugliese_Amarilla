@@ -5,9 +5,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="container text-center">
+        <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%:Session["cantidad"] %></span></h4>
+        <a href="Lista.aspx?cantidad=<%:Session["cantidad"] %>">ir a Carrito</a>
+
         <h2>ARTICULOS</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-
             <!-- Repiter -->
             <asp:Repeater ID="rep_ListaDefautl" runat="server">
                 <ItemTemplate>
