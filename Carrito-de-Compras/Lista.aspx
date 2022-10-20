@@ -9,6 +9,7 @@
         <h1>Lista Carrito</h1>
         <h2>Su Lista:</h2>
         <h3>Cantidad de articulos: <%:Request.QueryString["cantidad"] %></h3>
+        <h3>Cantidad de Repetidos: <asp:Label ID="lblRepetidos" Text="" runat="server" /></h3>
 
         <table class="table table-striped">
             <tbody>
