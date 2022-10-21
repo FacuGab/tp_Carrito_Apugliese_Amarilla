@@ -54,7 +54,7 @@
                                     </tbody>
                                 </table>
                             </td>
-                            <td><asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' /></td>
+                            <td><asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' style="width: 100%; height: 40vh; object-fit: contain;" /></td>
                             <td><asp:Button Text="Eliminar" runat="server" Enabled="false" /></td>            
                         </tr>
                     </ItemTemplate>
