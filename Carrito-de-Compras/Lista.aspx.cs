@@ -23,10 +23,10 @@ namespace Carrito_de_Compras
                 if ( Session["listaCarrito"] == null )
                 {
                     Session.Add("listaCarrito", new List<Articulo>());
-                    Session.Add("cantidadXunidad", new Dictionary<string, int>());
+                    //Session.Add("cantidadXunidad", new Dictionary<string, int>());
                 }
 
-                cantUniArt = (Dictionary<string, int>)Session["cantidadXunidad"];
+                //cantUniArt = (Dictionary<string, int>)Session["cantidadXunidad"];
                 lista = (List<Articulo>)Session["listaSeleccionados"];
                 if( lista == null )  return;
                 
@@ -36,10 +36,10 @@ namespace Carrito_de_Compras
                 {
                     if ( listaCarrito.Exists(itm => itm._Id == articulo._Id) )
                     {
-                        if(cantUniArt.ContainsKey(articulo._codArticulo))
-                            cantUniArt[articulo._codArticulo] += 1;
-                        else
-                            cantUniArt.Add(articulo._codArticulo, 1);
+                        //if(cantUniArt.ContainsKey(articulo._codArticulo))
+                        //    cantUniArt[articulo._codArticulo] += 1;
+                        //else
+                        //    cantUniArt.Add(articulo._codArticulo, 1);
                     }
                     else
                     {
@@ -47,7 +47,7 @@ namespace Carrito_de_Compras
                     }
                 }
 
-                lblRepetidos.Text = cantUniArt.Count.ToString();
+                //lblRepetidos.Text = cantUniArt.Count.ToString();
                 rep_repetidor.DataSource = listaCarrito;
                 rep_repetidor.DataBind();
             }

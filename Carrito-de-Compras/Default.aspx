@@ -6,6 +6,8 @@
 
     <div class="container text-center">
         <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%:Session["cantidad"] %></span></h4>
+        <h4>(quitar, solo de test)Cantidad de obj en session: <span class="badge bg-secondary"><%:Session.Count %></span></h4> <!-- Quitar -->
+        <h4>(quitar, solo de test)Cantidad de obj en Diccionario uniXcodigo: <span class="badge bg-secondary"><%:((Dictionary<string, int>)Session["uniXcodigo"]).Count %></span></h4> <!-- Quitar -->
         <a href="Lista.aspx?cantidad=<%:Session["cantidad"] %>">ir a Carrito</a>
 
         <h2>ARTICULOS</h2>
