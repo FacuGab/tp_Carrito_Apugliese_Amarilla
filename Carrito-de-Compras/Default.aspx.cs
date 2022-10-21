@@ -14,7 +14,8 @@ namespace Carrito_de_Compras
         private List<Articulo> listaArticulos;
         private List<Articulo> listaSeleccionados;
         private int cantidad = 0;
-        private int n = 0;
+        private int index;
+        private int rep;
         Dictionary<string, int> keyValues;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +29,7 @@ namespace Carrito_de_Compras
                 if(Session.Count == 0)
                 {
                     Session.Add("ListaArticulos", listaArticulos);
-                    Session.Add("listaSeleccionados", listaSeleccionados = new List<Articulo>());
+                    Session.Add("listaSeleccionados", new List<Articulo>());
                     Session.Add("cantidad", cantidad);
                     Session.Add("uniXcodigo", new Dictionary<string, int>());
                 }
@@ -42,19 +43,27 @@ namespace Carrito_de_Compras
                 return;
 
             cantidad += (int)Session["cantidad"];
-            string select = ((Button)sender).CommandArgument;
-            int intSelect = int.Parse(select);
+            int intSelect = int.Parse( ((Button)sender).CommandArgument );
 
             List<Articulo> list = ((List<Articulo>)Session["ListaArticulos"]);
             listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
-            keyValues = (Dictionary<string, int>)Session["uniXcodigo"];
+            keyValues = (Dictionary<string, int>)Session["uniXcodigo"]; 
 
-            listaSeleccionados.Add( list[list.FindIndex(itm => itm._Id == intSelect)] );
+            index = list.FindIndex(itm => itm._Id == intSelect);
+            listaSeleccionados.Add( list[index] );
             Session.Add("cantidad", ++cantidad);
-            
-            string codSeleccionado = listaSeleccionados[listaSeleccionados.FindIndex(itm => itm._Id == intSelect)]._codArticulo;
-            if(!keyValues.ContainsKey(codSeleccionado)) 
-                keyValues.Add(codSeleccionado, ++n);
+
+            index = listaSeleccionados.FindIndex(itm => itm._Id == intSelect);
+            string codSeleccionado = listaSeleccionados[index]._codArticulo;
+
+            if (!keyValues.ContainsKey(codSeleccionado))
+            {
+                keyValues.Add(codSeleccionado, 1);
+            }
+            else
+            {
+                keyValues[codSeleccionado]++;
+            }
         }
     }
 }
