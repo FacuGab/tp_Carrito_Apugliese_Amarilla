@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.EnterpriseServices;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -35,6 +36,20 @@ namespace Carrito_de_Compras
                 rep_repetidor.DataSource = listaCarrito;
                 rep_repetidor.DataBind();
             }
+        }
+
+        public string ArtRepetidos(string cod)
+        {
+            try
+            {
+                if(string.IsNullOrWhiteSpace(cod)) return "Nada";
+                int repetidos = (int)((Dictionary<string, int>)Session["uniXcodigo"])[cod];
+                return repetidos.ToString();
+            }
+            catch
+            {
+                return "Nada";
+            }   
         }
     }
 }

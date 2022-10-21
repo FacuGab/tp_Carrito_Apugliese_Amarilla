@@ -2,12 +2,20 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+        
+        <%//script:
+        var keyValues = ((Dictionary<string, int>)Session["uniXcodigo"]);
+        int cantidad = keyValues.Count;
+        int repeticiones = keyValues.TryGetValue("M03", out int value)? keyValues["M03"] : 0;
+        %>
 
     <div class="container text-center">
         <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%:Session["cantidad"] %></span></h4>
         <h4>(quitar, solo de test)Cantidad de obj en session: <span class="badge bg-secondary"><%:Session.Count %></span></h4> <!-- Quitar -->
-        <h4>(quitar, solo de test)Cantidad de obj en Diccionario uniXcodigo: <span class="badge bg-secondary"><%:((Dictionary<string, int>)Session["uniXcodigo"]).Count %></span></h4> <!-- Quitar -->
+        <h4>(quitar, solo de test)Cantidad de obj en Diccionario uniXcodigo: <span class="badge bg-secondary"><%:cantidad %></span></h4> <!-- Quitar -->
+        <h4>(quitar, solo de test)Cantidad de obj repetidos de "M03": <span class="badge bg-secondary"> <%:repeticiones %> </span></h4> <!-- Quitar -->
         <a href="Lista.aspx?cantidad=<%:Session["cantidad"] %>">ir a Carrito</a>
 
         <h2>ARTICULOS</h2>
@@ -38,5 +46,5 @@
 
         </div>
     </div>
-
+    
 </asp:Content>
