@@ -10,26 +10,22 @@
         <h1>Lista Carrito</h1>
         <h2>Su Lista:</h2>
         <h3>Cantidad de articulos: <%:Session["cantidad"] %></h3>
-        <h3>Monto Parcial: <asp:Label ID="lblParcial" Text=" $" runat="server" /></h3>
-        <h3>Monto Total: <asp:Label ID="lblTotal" Text=" $" runat="server" /></h3>
+        <h3>Cantidad de obj en Session: <%:Session.Count %></h3>
+        <h3>Monto Total:<asp:Label ID="lblTotal" Text=" $" runat="server" /></h3>
 
         <table class="table table-striped">
             <tbody>
-                <asp:Repeater ID="rep_repetidor" runat="server" >
-
+                <asp:Repeater ID="rep_repetidor" runat="server">
                     <HeaderTemplate>
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Articulo</th>
                                 <th scope="col">Imagen</th>
                             </tr>
                         </thead>
                     </HeaderTemplate>
                     <ItemTemplate>
-
                         <tr>
-                            <th scope="row"><%#DataBinder.Eval(Container.DataItem, "_Id") %></th>
                             <td>
                                 <table class="table table-striped">
                                     <thead>
@@ -86,14 +82,13 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:Button ID="btn_Eliminar" Text="Eliminar" runat="server" OnClick="btn_Eliminar_Click" />
+                                                <asp:Button ID="btn_Eliminar" Text="Eliminar" runat="server" CommandArgument='<%#Eval("_codArticulo") %>' OnClick="btn_Eliminar_Click" />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
-
                     </ItemTemplate>
                 </asp:Repeater>
             </tbody>

@@ -14,28 +14,27 @@ namespace Carrito_de_Compras
 {
     public partial class Lista : System.Web.UI.Page
     {
-        private List<Articulo> lista;
+        private List<Articulo> listaSeleccionados;
         private List<Articulo> listaCarrito;
         private decimal valorInicial;
         private decimal valorFinal;
         private decimal valorTotal;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                if (Session["montoTotal"] == null)
-                    Session.Add("montoTotal", decimal.One);
-
+                //Session.Remove("listaSeleccionados");// <------
                 if (Session["listaCarrito"] == null)
                     Session.Add("listaCarrito", new List<Articulo>());
-
-                lista = (List<Articulo>)Session["listaSeleccionados"];
-                if( lista == null )  
-                    return;
                 listaCarrito = (List<Articulo>)Session["listaCarrito"];
-                foreach (Articulo articulo in lista)
+
+                listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+                if (listaSeleccionados == null)
+                    return;
+
+                foreach (Articulo articulo in listaSeleccionados)
                 {
-                    if ( !listaCarrito.Exists(itm => itm._Id == articulo._Id) )
+                    if (!listaCarrito.Exists(itm => itm._Id == articulo._Id))
                         listaCarrito.Add(articulo);
                 }
 
@@ -44,7 +43,7 @@ namespace Carrito_de_Compras
 
                 valorTotal = (decimal)Session["montoParcial"];
                 Session["montoParcial"] = 0.00M;
-                lblParcial.Text += valorTotal.ToString();
+                lblTotal.Text += valorTotal.ToString();
             }
         }
         //Metodos:
@@ -52,7 +51,8 @@ namespace Carrito_de_Compras
         {
             try
             {
-                if(string.IsNullOrWhiteSpace(cod)) return "Nada";
+                if (string.IsNullOrWhiteSpace(cod)) 
+                    return "Nada";
                 //se puede hacer mas simple, esta asi para que se lea mejor...
                 string repetidos = ((Dictionary<string, int>)Session["uniXcodigo"])[cod].ToString();
                 return repetidos;
@@ -60,9 +60,8 @@ namespace Carrito_de_Compras
             catch
             {
                 return "Nada";
-            }   
+            }
         }
-
         public decimal TotalXunidades(string cod, decimal precio)
         {
             try
@@ -89,7 +88,35 @@ namespace Carrito_de_Compras
 
         protected void btn_Eliminar_Click(object sender, EventArgs e)
         {
-            
+            int cant;
+            string codArt = ((Button)sender).CommandArgument;
+
+            // sacar ?? 
+            listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+            if (listaSeleccionados == null)
+                return;
+            // sacar ??
+
+            cant = listaSeleccionados.Count;
+            if (cant > 0)
+                Session.Add("cantidad", --cant);
+
+
+            listaCarrito = (List<Articulo>)Session["listaCarrito"];
+            Dictionary<string, int> uniXcodigo = (Dictionary<string, int>)Session["uniXcodigo"];
+            if (uniXcodigo[codArt] > 1)
+            {
+                uniXcodigo[codArt]--;
+                listaSeleccionados.RemoveAt(listaSeleccionados.FindIndex(itm => itm._codArticulo == codArt));
+            }
+            else
+            {
+                listaCarrito.RemoveAt(listaCarrito.FindIndex(itm => itm._codArticulo == codArt));
+            }
+
+            rep_repetidor.DataSource = listaCarrito;
+            rep_repetidor.DataBind();
         }
-    }//
+    }
+    //
 }

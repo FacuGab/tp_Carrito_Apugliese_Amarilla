@@ -21,15 +21,15 @@ namespace Carrito_de_Compras
             if(!IsPostBack)
             {
                 NegocioArticulo negocio = new NegocioArticulo();
-                listaArticulos = new List<Articulo>( negocio.listarArticulos(0) );
-                rep_ListaDefautl.DataSource = listaArticulos;
+                //listaArticulos = new List<Articulo>( negocio.listarArticulos(0) );
+                rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
                 rep_ListaDefautl.DataBind();
 
                 if(Session.Count == 0)
                 {
-                    Session.Add("ListaArticulos", listaArticulos);
+                    Session.Add("ListaArticulos", new List<Articulo>(negocio.listarArticulos(0)));
                     Session.Add("listaSeleccionados", new List<Articulo>());
-                    Session.Add("cantidad", cantidad);
+                    Session.Add("cantidad", 0);
                     Session.Add("uniXcodigo", new Dictionary<string, int>());
                     Session.Add("montoTotal", 0.00M);
                     Session.Add("montoParcial", 0.00M);
