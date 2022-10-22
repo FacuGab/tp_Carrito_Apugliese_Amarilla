@@ -82,7 +82,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:Button ID="btn_Eliminar" Text="Eliminar" runat="server" CommandArgument='<%#Eval("_codArticulo") %>' OnClick="btn_Eliminar_Click" />
+                                                <asp:Button ID="btn_Eliminar" Text="Eliminar" runat="server" CommandArgument='<%#Eval("_codArticulo") %>' CommandName="_codArticulo"  OnClick="btn_Eliminar_Click" />
                                             </td>
                                         </tr>
                                     </tbody>

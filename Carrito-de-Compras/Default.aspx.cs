@@ -11,7 +11,6 @@ namespace Carrito_de_Compras
 {
     public partial class Default : System.Web.UI.Page
     {
-        private List<Articulo> listaArticulos;
         private List<Articulo> listaSeleccionados;
         private int cantidad = 0;
         private int index;
