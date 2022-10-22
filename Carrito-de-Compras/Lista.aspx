@@ -71,7 +71,8 @@
                                 </table>
                             </td>
                             <td>
-                                <asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' Style="width: 100%; height: 40vh; object-fit: contain;" /></td>
+                                <asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'" Style="width: 100%; height: 40vh; object-fit: contain;" />
+                            </td>
                             <td>
                                 <table class="table">
                                     <tbody>

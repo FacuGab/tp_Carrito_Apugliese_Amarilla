@@ -23,9 +23,9 @@
             <!-- Repiter -->
             <asp:Repeater ID="rep_ListaDefautl" runat="server">
                 <ItemTemplate>
-                    <div class="col" style="padding-bottom: 10px;">
+                    <div class="col" style="padding-bottom: 10px; display:grid; justify-items:center;">
                         <div class="card" style="width: 18rem;">
-                            <img src="<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>" class="card-img-top" alt="Imagen Default" style="width: 100%; height: 40vh; object-fit: contain;">
+                            <asp:Image runat="server" CssClass="img-thumbnail" ImageUrl='<%#DataBinder.Eval(Container.DataItem, "_urlImagen")%>' onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'" Style="width: 100%; height: 40vh; object-fit: contain;" />
                             <div class="card-body">
                                 <h5 class="card-title"><%#DataBinder.Eval(Container.DataItem, "_nombre")%></h5>
                                 <p class="card-text"><%#DataBinder.Eval(Container.DataItem, "_descripcion")%></p>
