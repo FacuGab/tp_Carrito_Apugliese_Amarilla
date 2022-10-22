@@ -15,13 +15,22 @@ namespace Carrito_de_Compras
     {
 
         /// <summary>
-        /// lblRepetidos control.
+        /// lblParcial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRepetidos;
+        protected global::System.Web.UI.WebControls.Label lblParcial;
+
+        /// <summary>
+        /// lblTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotal;
 
         /// <summary>
         /// rep_repetidor control.

@@ -4,6 +4,7 @@ using System.EnterpriseServices;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
@@ -15,11 +16,16 @@ namespace Carrito_de_Compras
     {
         private List<Articulo> lista;
         private List<Articulo> listaCarrito;
-        public int repetido { get; set; }
+        private decimal valorInicial;
+        private decimal valorFinal;
+        private decimal valorTotal;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack) // por si hay postback, ver ... 
+            if(!IsPostBack)
             {
+                if (Session["montoTotal"] == null)
+                    Session.Add("montoTotal", decimal.One);
+
                 if (Session["listaCarrito"] == null)
                     Session.Add("listaCarrito", new List<Articulo>());
 
@@ -35,21 +41,55 @@ namespace Carrito_de_Compras
 
                 rep_repetidor.DataSource = listaCarrito;
                 rep_repetidor.DataBind();
+
+                valorTotal = (decimal)Session["montoParcial"];
+                Session["montoParcial"] = 0.00M;
+                lblParcial.Text += valorTotal.ToString();
             }
         }
-
+        //Metodos:
         public string ArtRepetidos(string cod)
         {
             try
             {
                 if(string.IsNullOrWhiteSpace(cod)) return "Nada";
-                int repetidos = (int)((Dictionary<string, int>)Session["uniXcodigo"])[cod];
-                return repetidos.ToString();
+                //se puede hacer mas simple, esta asi para que se lea mejor...
+                string repetidos = ((Dictionary<string, int>)Session["uniXcodigo"])[cod].ToString();
+                return repetidos;
             }
             catch
             {
                 return "Nada";
             }   
         }
-    }
+
+        public decimal TotalXunidades(string cod, decimal precio)
+        {
+            try
+            {
+                int cantidad = ((Dictionary<string, int>)Session["uniXcodigo"])[cod];
+                decimal total = cantidad * precio;
+                montoParcial(total);
+                return total;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        private void montoParcial(decimal monto)
+        {
+            if (Session["montoParcial"] != null)
+            {
+                valorInicial = (decimal)Session["montoParcial"];
+                valorFinal = monto + valorInicial;
+                Session.Add("montoParcial", valorFinal);
+            }
+        }
+
+        protected void btn_Eliminar_Click(object sender, EventArgs e)
+        {
+            
+        }
+    }//
 }

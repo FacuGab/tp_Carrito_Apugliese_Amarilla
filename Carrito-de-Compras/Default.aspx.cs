@@ -15,7 +15,6 @@ namespace Carrito_de_Compras
         private List<Articulo> listaSeleccionados;
         private int cantidad = 0;
         private int index;
-        private int rep;
         Dictionary<string, int> keyValues;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,10 +31,12 @@ namespace Carrito_de_Compras
                     Session.Add("listaSeleccionados", new List<Articulo>());
                     Session.Add("cantidad", cantidad);
                     Session.Add("uniXcodigo", new Dictionary<string, int>());
+                    Session.Add("montoTotal", 0.00M);
+                    Session.Add("montoParcial", 0.00M);
                 }
             }
         }
-        
+        //Metodos:
         protected void btn_AgregarArt_Click(object sender, EventArgs e)
         {
             
