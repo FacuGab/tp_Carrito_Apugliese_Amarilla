@@ -32,7 +32,7 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Codigo: <%#DataBinder.Eval(Container.DataItem, "_codArticulo")%></li>
-                                <li class="list-group-item">Precio: <%#DataBinder.Eval(Container.DataItem, "_precio")%></li>
+                                <li class="list-group-item">Precio: <%#DataBinder.Eval(Container.DataItem, "_precio")%> $</li>
                                 <li class="list-group-item">Marca: <%#DataBinder.Eval(Container.DataItem, "_marca._Descripcion")%></li>
                             </ul>
                             <div class="card-body">

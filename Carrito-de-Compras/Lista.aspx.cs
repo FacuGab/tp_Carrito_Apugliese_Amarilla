@@ -19,7 +19,7 @@ namespace Carrito_de_Compras
         private decimal valorInicial;
         private decimal valorFinal;
         private decimal valorTotal;
-        private bool flag = false;
+        private bool flag = true;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,7 +39,8 @@ namespace Carrito_de_Compras
                         listaCarrito.Add(articulo);
                 }
 
-                flag = true;
+                
+                Session.Add("cantidad", listaSeleccionados.Count);
                 rep_repetidor.DataSource = listaCarrito;
                 rep_repetidor.DataBind();
             }
@@ -98,41 +99,49 @@ namespace Carrito_de_Compras
 
         protected void btn_Eliminar_Click(object sender, EventArgs e)
         {
-            if (flag) return;    
+
             int cant;
             string codArt = ((Button)sender).CommandArgument;
 
-            listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
-            if (listaSeleccionados == null)
-                return;
-
-            cant = listaSeleccionados.Count;
-            if (cant > 0)
-                Session.Add("cantidad", --cant);
-            else
-                Session.Add("cantidad", 0);
-
-            listaCarrito = (List<Articulo>)Session["listaCarrito"];
-            Dictionary<string, int> uniXcodigo = (Dictionary<string, int>)Session["uniXcodigo"];
-            int index = listaSeleccionados.FindIndex(itm => itm._codArticulo == codArt);
-            if (uniXcodigo[codArt] > 1)
+            try
             {
-                restarMonto(listaSeleccionados[index]._precio);
-                listaSeleccionados.RemoveAt(index);
-                uniXcodigo[codArt]--;
-            }
-            else
-            {
-                restarMonto(listaSeleccionados[index]._precio);
-                listaSeleccionados.RemoveAt(index);
-                listaCarrito.RemoveAt(listaCarrito.FindIndex(itm => itm._codArticulo == codArt));
-                uniXcodigo[codArt]--;
-            }
+                listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+                if (listaSeleccionados == null)
+                    return;
 
-            rep_repetidor.DataSource = listaCarrito;
-            rep_repetidor.DataBind();
-            valorTotal = (decimal)Session["montoParcial"];
-            lblTotal.Text = valorTotal.ToString() + " $";
+                cant = listaSeleccionados.Count;
+                if (cant > 0)
+                    Session.Add("cantidad", --cant);
+                else
+                    Session.Add("cantidad", 0);
+
+                listaCarrito = (List<Articulo>)Session["listaCarrito"];
+                Dictionary<string, int> uniXcodigo = (Dictionary<string, int>)Session["uniXcodigo"];
+                int index = listaSeleccionados.FindIndex(itm => itm._codArticulo == codArt);
+                if (uniXcodigo[codArt] > 1)
+                {
+                    restarMonto(listaSeleccionados[index]._precio);
+                    listaSeleccionados.RemoveAt(index);
+                    uniXcodigo[codArt]--;
+                }
+                else
+                {
+                    restarMonto(listaSeleccionados[index]._precio);
+                    listaSeleccionados.RemoveAt(index);
+                    listaCarrito.RemoveAt(listaCarrito.FindIndex(itm => itm._codArticulo == codArt));
+                    uniXcodigo[codArt]--;
+                }
+
+                rep_repetidor.DataSource = listaCarrito;
+                rep_repetidor.DataBind();
+                valorTotal = (decimal)Session["montoParcial"];
+                lblTotal.Text = valorTotal.ToString() + " $";
+            }
+            catch
+            {
+                Response.Redirect("Lista.aspx", false);
+            }
+            
         }
     }//
 }
