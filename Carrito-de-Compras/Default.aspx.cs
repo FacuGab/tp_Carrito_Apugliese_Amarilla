@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -21,6 +22,7 @@ namespace Carrito_de_Compras
             {
                 NegocioArticulo negocio = new NegocioArticulo();
                 NegocioDetalle detalles = new NegocioDetalle();
+                
                 detalles.listarDosCategorias();
                 dwlTipo.DataSource = detalles.listaCategorias;
                 dwlTipo.DataBind();
@@ -94,13 +96,33 @@ namespace Carrito_de_Compras
         {
             try
             {
-                var obj = (Button)sender;
+                List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
                 string marca = dwlMarca.SelectedValue;
                 string tipo = dwlTipo.SelectedValue;
-                decimal precio = decimal.Parse(txbPrecio.Text);
+                string strPrecio = txbPrecio.Text;
+                decimal precio;
+                if (!decimal.TryParse(strPrecio, out precio))
+                {
+                    PageUtils.Mensaje(this, "El precio ingresado no es valido");
+                    return;
+                }
+                else
+                {
+                    precio = decimal.Round(precio);
+                    string msg = $"{marca} - {tipo} - {precio}";
+                    PageUtils.Mensaje(this, msg);//solo de ayuda visual, sacar
+                }
+
+
+
+
+
+
+
             }
             catch
             {
+                PageUtils.Mensaje(this, "Error en el ingreso de campos");
                 Response.Redirect("Default.aspx", false);
             }
         }
