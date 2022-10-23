@@ -19,7 +19,6 @@ namespace Carrito_de_Compras
         private decimal valorInicial;
         private decimal valorFinal;
         private decimal valorTotal;
-        private bool flag = true;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -99,7 +98,6 @@ namespace Carrito_de_Compras
 
         protected void btn_Eliminar_Click(object sender, EventArgs e)
         {
-
             int cant;
             string codArt = ((Button)sender).CommandArgument;
 
@@ -141,7 +139,6 @@ namespace Carrito_de_Compras
             {
                 Response.Redirect("Lista.aspx", false);
             }
-            
         }
     }//
 }

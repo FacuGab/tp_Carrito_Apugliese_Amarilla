@@ -20,7 +20,13 @@ namespace Carrito_de_Compras
             if(!IsPostBack)
             {
                 NegocioArticulo negocio = new NegocioArticulo();
-                //listaArticulos = new List<Articulo>( negocio.listarArticulos(0) );
+                NegocioDetalle detalles = new NegocioDetalle();
+                detalles.listarDosCategorias();
+                dwlTipo.DataSource = detalles.listaCategorias;
+                dwlTipo.DataBind();
+                dwlMarca.DataSource = detalles.listaMarcas;
+                dwlMarca.DataBind();
+
                 rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
                 rep_ListaDefautl.DataBind();
 
@@ -38,32 +44,65 @@ namespace Carrito_de_Compras
         //Metodos:
         protected void btn_AgregarArt_Click(object sender, EventArgs e)
         {
-            
-            if ( Session["listaSeleccionados"] == null || Session["ListaArticulos"] == null ) 
-                return;
-
-            cantidad += (int)Session["cantidad"];
-            int intSelect = int.Parse( ((Button)sender).CommandArgument );
-
-            List<Articulo> list = ((List<Articulo>)Session["ListaArticulos"]);
-            listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
-            keyValues = (Dictionary<string, int>)Session["uniXcodigo"]; 
-
-            index = list.FindIndex(itm => itm._Id == intSelect);
-            listaSeleccionados.Add( list[index] );
-            Session.Add("cantidad", ++cantidad);
-
-            index = listaSeleccionados.FindIndex(itm => itm._Id == intSelect);
-            string codSeleccionado = listaSeleccionados[index]._codArticulo;
-
-            if (!keyValues.ContainsKey(codSeleccionado))
+            try
             {
-                keyValues.Add(codSeleccionado, 1);
+                if (Session["listaSeleccionados"] == null || Session["ListaArticulos"] == null)
+                    return;
+
+                cantidad += (int)Session["cantidad"];
+                int intSelect = int.Parse(((Button)sender).CommandArgument);
+
+                List<Articulo> list = ((List<Articulo>)Session["ListaArticulos"]);
+                listaSeleccionados = (List<Articulo>)Session["listaSeleccionados"];
+                keyValues = (Dictionary<string, int>)Session["uniXcodigo"];
+
+                index = list.FindIndex(itm => itm._Id == intSelect);
+                listaSeleccionados.Add(list[index]);
+                Session.Add("cantidad", ++cantidad);
+
+                index = listaSeleccionados.FindIndex(itm => itm._Id == intSelect);
+                string codSeleccionado = listaSeleccionados[index]._codArticulo;
+
+                if (!keyValues.ContainsKey(codSeleccionado))
+                {
+                    keyValues.Add(codSeleccionado, 1);
+                }
+                else
+                {
+                    keyValues[codSeleccionado]++;
+                }
             }
-            else
+            catch
             {
-                keyValues[codSeleccionado]++;
+                Response.Redirect("Default.aspx", false);
+            }
+            
+        }
+        protected void lbtLinkCarrito_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response.Redirect("Lista.aspx", false);
+            }
+            catch
+            {
+                Response.Redirect("Default.aspx", false);
             }
         }
-    }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var obj = (Button)sender;
+                string marca = dwlMarca.SelectedValue;
+                string tipo = dwlTipo.SelectedValue;
+                decimal precio = decimal.Parse(txbPrecio.Text);
+            }
+            catch
+            {
+                Response.Redirect("Default.aspx", false);
+            }
+        }
+    }//
 }
