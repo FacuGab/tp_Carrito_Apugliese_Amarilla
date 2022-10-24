@@ -53,7 +53,8 @@
                 </tbody>
             </table>
             <div>
-                <asp:Button ID="btnFiltrar" Text="Filtrar" OnClick="btnFiltrar_Click" runat="server" />
+                <asp:Button ID="btnFiltrar" Text="Filtrar" OnClick="btnFiltrar_Click" runat="server" CssClass="btn btn-primary"/>
+                <asp:Button ID="btnResetFiltro" Text="Borrar filtro" OnClick="btnResetFiltro_Click" runat="server" CssClass="btn btn-primary"/>
             </div>
         </div>
         <hr />

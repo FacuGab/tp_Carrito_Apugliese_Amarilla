@@ -18,11 +18,11 @@ namespace Carrito_de_Compras
         Dictionary<string, int> keyValues;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 NegocioArticulo negocio = new NegocioArticulo();
                 NegocioDetalle detalles = new NegocioDetalle();
-                
+
                 detalles.listarDosCategorias();
                 dwlTipo.DataSource = detalles.listaCategorias;
                 dwlTipo.DataBind();
@@ -32,7 +32,7 @@ namespace Carrito_de_Compras
                 rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
                 rep_ListaDefautl.DataBind();
 
-                if(Session.Count == 0)
+                if (Session.Count == 0)
                 {
                     Session.Add("ListaArticulos", new List<Articulo>(negocio.listarArticulos(0)));
                     Session.Add("listaSeleccionados", new List<Articulo>());
@@ -78,7 +78,7 @@ namespace Carrito_de_Compras
             {
                 Response.Redirect("Default.aspx", false);
             }
-            
+
         }
         protected void lbtLinkCarrito_Click(object sender, EventArgs e)
         {
@@ -96,28 +96,39 @@ namespace Carrito_de_Compras
         {
             try
             {
-                List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
-                string marca = dwlMarca.SelectedValue;
-                string tipo = dwlTipo.SelectedValue;
-                string strPrecio = txbPrecio.Text;
-                decimal precio;
-                if (!decimal.TryParse(strPrecio, out precio))
+                if (IsPostBack)
                 {
-                    PageUtils.Mensaje(this, "El precio ingresado no es valido");
-                    return;
+                    List<Articulo> listaFiltrada = new List<Articulo>();
+                    List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
+                    string marca = dwlMarca.SelectedValue;
+                    string tipo = dwlTipo.SelectedValue;
+                    string strPrecio = txbPrecio.Text;
+                    decimal precio;
+                    if (!decimal.TryParse(strPrecio, out precio))
+                    {
+                        PageUtils.Mensaje(this, "El precio ingresado no es valido");
+                        return;
+                    }
+                    else
+                    {
+                        precio = decimal.Round(precio);
+                        string msg = $"{marca} - {tipo} - {precio}";
+                        PageUtils.Mensaje(this, msg);//solo de ayuda visual, sacar
+                    }
+
+                    foreach (Articulo item in listaArticulos)
+                    { 
+                        if(item._marca._Descripcion == marca)
+                            listaFiltrada.Add(item);
+                        if (item._categoria._Descripcion == tipo)
+                            listaFiltrada.Add(item);
+                        if (item._precio == precio)
+                            listaFiltrada.Add(item);
+                    }
+                    
+                    rep_ListaDefautl.DataSource = listaFiltrada;
+                    rep_ListaDefautl.DataBind();
                 }
-                else
-                {
-                    precio = decimal.Round(precio);
-                    string msg = $"{marca} - {tipo} - {precio}";
-                    PageUtils.Mensaje(this, msg);//solo de ayuda visual, sacar
-                }
-
-
-
-
-
-
 
             }
             catch
@@ -125,6 +136,11 @@ namespace Carrito_de_Compras
                 PageUtils.Mensaje(this, "Error en el ingreso de campos");
                 Response.Redirect("Default.aspx", false);
             }
+        }
+
+        protected void btnResetFiltro_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx", false);
         }
     }//
 }
