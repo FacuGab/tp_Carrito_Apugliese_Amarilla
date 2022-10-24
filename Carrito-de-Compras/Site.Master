@@ -23,7 +23,7 @@
     <form id="form1" runat="server">
         <div>
             <!-- Nav -->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #000 !important">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #000 !important; margin-bottom:10px">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="https://play-lh.googleusercontent.com/Lpo_Y1AVuKdVrjzYD4xy1Y8lP-U3DE3W9gqFgCAXw-LKO1dPmCUKwWt27fLXs3k5--k" alt="Logo del carrito" style="height: 2.5em;" /></a>

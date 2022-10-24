@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 namespace Carrito_de_Compras
 {
     public partial class Default : System.Web.UI.Page
-    {
+    {//
         private List<Articulo> listaSeleccionados;
         Dictionary<string, int> keyValues;
         private int cantidad = 0;
@@ -39,6 +39,10 @@ namespace Carrito_de_Compras
                 ls.AddRange(detalles.listaMarcas);
                 dwlMarca.DataSource = ls;
                 dwlMarca.DataBind();
+
+                dwlSelector.Items.Insert(0, "Igual a");
+                dwlSelector.Items.Insert(1, "Mayor a");
+                dwlSelector.Items.Insert(2, "Menor a");
 
                 rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
                 rep_ListaDefautl.DataBind();
@@ -116,6 +120,7 @@ namespace Carrito_de_Compras
                     string marca = dwlMarca.SelectedValue;
                     string tipo = dwlTipo.SelectedValue;
                     string strPrecio = txbPrecio.Text;
+                    string selector = dwlSelector.SelectedValue;
                     decimal precio = 0.00M;
 
                     if(!string.IsNullOrEmpty(strPrecio))
@@ -138,15 +143,20 @@ namespace Carrito_de_Compras
                             listaFiltrada.Add(item);
                         if (item._categoria._Descripcion == tipo && !string.IsNullOrEmpty(marca))
                             listaFiltrada.Add(item);
-                        if(item._precio == precio && precio > 0)
-                            listaFiltrada.Add(item);
+                        if(precio > 0)
+                        {
+                            if (selector == "Menor a" && item._precio <= precio)
+                                listaFiltrada.Add(item);
+                            else if (selector == "Mayor a" && item._precio >= precio)
+                                listaFiltrada.Add(item);
+                            else if (item._precio == precio)
+                                listaFiltrada.Add(item);
+                        }
                     }
-
                     
-                    rep_ListaDefautl.DataSource = listaFiltrada.Count > 0 ? listaFiltrada : listaArticulos;
+                    rep_ListaDefautl.DataSource = listaFiltrada;
                     rep_ListaDefautl.DataBind();
                 }
-
             }
             catch
             {

@@ -5,12 +5,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <%//script:
-        var keyValues = ((Dictionary<string, int>)Session["uniXcodigo"]);
-        int cantidad = keyValues.Count;
-        int repeticiones = keyValues.TryGetValue("M03", out int value) ? keyValues["M03"] : 0;
-    %>
-
     <div class="container text-center">
         <div style="margin-bottom: 10px">
             <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%:Session["cantidad"] %></span></h4>
@@ -47,7 +41,16 @@
                             <h4>Precio:</h4>
                         </td>
                         <td colspan="2">
-                            <asp:TextBox CssClass="form-control" ID="txbPrecio" runat="server" />
+
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <asp:TextBox CssClass="form-control" ID="txbPrecio" runat="server" />
+                                </div>
+                                <div class="col-md-4">
+                                    <asp:DropDownList ID="dwlSelector" CssClass="form-control" runat="server" />
+                                </div>
+                            </div>
+                            
                         </td>
                     </tr>
                 </tbody>
