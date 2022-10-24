@@ -13,20 +13,32 @@ namespace Carrito_de_Compras
     public partial class Default : System.Web.UI.Page
     {
         private List<Articulo> listaSeleccionados;
+        Dictionary<string, int> keyValues;
         private int cantidad = 0;
         private int index;
-        Dictionary<string, int> keyValues;
+        private bool flag = false;
+
+        //LOAD:
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                Detalle aux = new Detalle() { _Id = -1, _Descripcion = "" };
+                List<Detalle> ls = new List<Detalle>();
                 NegocioArticulo negocio = new NegocioArticulo();
                 NegocioDetalle detalles = new NegocioDetalle();
-
                 detalles.listarDosCategorias();
-                dwlTipo.DataSource = detalles.listaCategorias;
+
+                ls.Add(aux);
+                ls.AddRange(detalles.listaCategorias);
+                dwlTipo.DataSource = ls;
                 dwlTipo.DataBind();
-                dwlMarca.DataSource = detalles.listaMarcas;
+
+                ls.Clear();
+
+                ls.Add(aux);
+                ls.AddRange(detalles.listaMarcas);
+                dwlMarca.DataSource = ls;
                 dwlMarca.DataBind();
 
                 rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
@@ -43,7 +55,8 @@ namespace Carrito_de_Compras
                 }
             }
         }
-        //Metodos:
+        //METODOS:
+        //Boton Agregar
         protected void btn_AgregarArt_Click(object sender, EventArgs e)
         {
             try
@@ -80,6 +93,7 @@ namespace Carrito_de_Compras
             }
 
         }
+        //Boton Ir a Carrito
         protected void lbtLinkCarrito_Click(object sender, EventArgs e)
         {
             try
@@ -91,7 +105,7 @@ namespace Carrito_de_Compras
                 Response.Redirect("Default.aspx", false);
             }
         }
-
+        //Boton Filtrar
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
             try
@@ -103,26 +117,29 @@ namespace Carrito_de_Compras
                     string marca = dwlMarca.SelectedValue;
                     string tipo = dwlTipo.SelectedValue;
                     string strPrecio = txbPrecio.Text;
-                    decimal precio;
-                    if (!decimal.TryParse(strPrecio, out precio))
+                    decimal precio = 0.00M;
+
+                    if(!string.IsNullOrEmpty(strPrecio))
                     {
-                        PageUtils.Mensaje(this, "El precio ingresado no es valido");
-                        return;
-                    }
-                    else
-                    {
-                        precio = decimal.Round(precio);
-                        string msg = $"{marca} - {tipo} - {precio}";
-                        PageUtils.Mensaje(this, msg);//solo de ayuda visual, sacar
+                        if (!decimal.TryParse(strPrecio, out precio))
+                        {
+                            PageUtils.Mensaje(this, "El precio ingresado no es valido");
+                            return;
+                        }
+                        else
+                        {
+                            precio = decimal.Parse(strPrecio);
+                            precio = decimal.Round(precio);
+                        }
                     }
 
                     foreach (Articulo item in listaArticulos)
                     { 
-                        if(item._marca._Descripcion == marca)
+                        if(item._marca._Descripcion == marca && flag)
                             listaFiltrada.Add(item);
-                        if (item._categoria._Descripcion == tipo)
+                        if (item._categoria._Descripcion == tipo && flag)
                             listaFiltrada.Add(item);
-                        if (item._precio == precio)
+                        if(precio > 0 && item._precio == precio)
                             listaFiltrada.Add(item);
                     }
                     
@@ -137,10 +154,16 @@ namespace Carrito_de_Compras
                 Response.Redirect("Default.aspx", false);
             }
         }
-
+        //Boton Resetear Filtro
         protected void btnResetFiltro_Click(object sender, EventArgs e)
         {
+            flag = true;
             Response.Redirect("Default.aspx", false);
+        }
+        //Evento ListBox
+        protected void dwlMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flag = true;
         }
     }//
 }
