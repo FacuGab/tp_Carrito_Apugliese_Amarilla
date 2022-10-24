@@ -16,7 +16,6 @@ namespace Carrito_de_Compras
         Dictionary<string, int> keyValues;
         private int cantidad = 0;
         private int index;
-        private bool flag = false;
 
         //LOAD:
         protected void Page_Load(object sender, EventArgs e)
@@ -135,15 +134,16 @@ namespace Carrito_de_Compras
 
                     foreach (Articulo item in listaArticulos)
                     { 
-                        if(item._marca._Descripcion == marca && flag)
+                        if(item._marca._Descripcion == marca && !string.IsNullOrEmpty(marca))
                             listaFiltrada.Add(item);
-                        if (item._categoria._Descripcion == tipo && flag)
+                        if (item._categoria._Descripcion == tipo && !string.IsNullOrEmpty(marca))
                             listaFiltrada.Add(item);
-                        if(precio > 0 && item._precio == precio)
+                        if(item._precio == precio && precio > 0)
                             listaFiltrada.Add(item);
                     }
+
                     
-                    rep_ListaDefautl.DataSource = listaFiltrada;
+                    rep_ListaDefautl.DataSource = listaFiltrada.Count > 0 ? listaFiltrada : listaArticulos;
                     rep_ListaDefautl.DataBind();
                 }
 
@@ -157,13 +157,7 @@ namespace Carrito_de_Compras
         //Boton Resetear Filtro
         protected void btnResetFiltro_Click(object sender, EventArgs e)
         {
-            flag = true;
             Response.Redirect("Default.aspx", false);
-        }
-        //Evento ListBox
-        protected void dwlMarca_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            flag = true;
         }
     }//
 }

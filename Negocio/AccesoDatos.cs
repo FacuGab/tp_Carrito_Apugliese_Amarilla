@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Negocio
 {
@@ -20,10 +22,10 @@ namespace Negocio
         public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
             // Luchoo! para conectarte vs cambia "serverDef1" por "serverDef2"...
-            // server por defecto serverDef1 = . 
-            // sgundo server por defecto serverDef3 = .\\SQLEXPRESS
-            //string server = ConfigurationManager.AppSettings["serverDef1"];
-            //cadenaConexion = "server="+server+";database = CATALOGO_DB; integrated security = true";
+            // server por defecto ConnStr1 = . 
+            // sgundo server por defecto ConnStr2 = .\\SQLEXPRESS
+            //string strCon = ConfigurationManager.ConnectionStrings["ConnStr1"].ToString();
+            //cadenaConexion = strCon;
             //cadenaConexion = "server=.\\SQLEXPRESS01;database = CATALOGO_DB; integrated security = true";
             try
             {

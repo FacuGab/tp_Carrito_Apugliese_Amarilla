@@ -31,7 +31,7 @@
                             <h4>Marca:</h4>
                         </td>
                         <td colspan="2">
-                            <asp:DropDownList ID="dwlMarca" CssClass="form-control" OnSelectedIndexChanged="dwlMarca_SelectedIndexChanged" runat="server"></asp:DropDownList>
+                            <asp:DropDownList ID="dwlMarca" CssClass="form-control"  runat="server"></asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
@@ -39,7 +39,7 @@
                             <h4>Tipo:</h4>
                         </td>
                         <td colspan="2">
-                            <asp:DropDownList ID="dwlTipo" CssClass="form-control" OnSelectedIndexChanged="dwlMarca_SelectedIndexChanged" runat="server"></asp:DropDownList>
+                            <asp:DropDownList ID="dwlTipo" CssClass="form-control"  runat="server"></asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
