@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace Negocio

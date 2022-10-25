@@ -64,6 +64,7 @@
         <!-- FIN Filtros Busqueda -->
 
         <h2>ARTICULOS</h2>
+        <h5>Cantidad de articulos encontrados: <span class="badge bg-secondary"><%: count %></span></h5>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <!-- Repiter -->
             <asp:Repeater ID="rep_ListaDefautl" runat="server">

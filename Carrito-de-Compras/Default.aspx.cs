@@ -16,6 +16,7 @@ namespace Carrito_de_Compras
         Dictionary<string, int> keyValues;
         private int cantidad = 0;
         private int index;
+        public int count { get; set; }
 
         //LOAD:
         protected void Page_Load(object sender, EventArgs e)
@@ -50,11 +51,18 @@ namespace Carrito_de_Compras
                 if (Session.Count == 0)
                 {
                     Session.Add("ListaArticulos", new List<Articulo>(negocio.listarArticulos(0)));
+                    Session.Add("cantidadFiltrados", negocio.CantArt);
                     Session.Add("listaSeleccionados", new List<Articulo>());
                     Session.Add("cantidad", 0);
                     Session.Add("uniXcodigo", new Dictionary<string, int>());
                     Session.Add("montoTotal", 0.00M);
                     Session.Add("montoParcial", 0.00M);
+                    count = negocio.CantArt;
+                }
+                else
+                {
+                    Session.Add("cantidadFiltrados", negocio.CantArt);
+                    count = negocio.CantArt;
                 }
             }
         }
@@ -115,6 +123,7 @@ namespace Carrito_de_Compras
             {
                 if (IsPostBack)
                 {
+                    NegocioArticulo negocioFiltro = new NegocioArticulo();
                     List<Articulo> listaFiltrada = new List<Articulo>();
                     List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
                     string marca = dwlMarca.SelectedValue;
@@ -137,23 +146,31 @@ namespace Carrito_de_Compras
                         }
                     }
 
-                    foreach (Articulo item in listaArticulos)
-                    { 
-                        if(item._marca._Descripcion == marca && !string.IsNullOrEmpty(marca))
-                            listaFiltrada.Add(item);
-                        if (item._categoria._Descripcion == tipo && !string.IsNullOrEmpty(marca))
-                            listaFiltrada.Add(item);
-                        if(precio > 0)
-                        {
-                            if (selector == "Menor a" && item._precio <= precio)
-                                listaFiltrada.Add(item);
-                            else if (selector == "Mayor a" && item._precio >= precio)
-                                listaFiltrada.Add(item);
-                            else if (item._precio == precio)
-                                listaFiltrada.Add(item);
-                        }
-                    }
-                    
+                    listaFiltrada = negocioFiltro.busquedaFiltrada(marca, tipo, precio, selector);
+                    //foreach (Articulo item in listaArticulos)
+                    //{ 
+                        
+                    //    if(item._marca._Descripcion == marca && !string.IsNullOrEmpty(marca))
+                    //        listaFiltrada.Add(item);
+                    //    if (item._categoria._Descripcion == tipo && !string.IsNullOrEmpty(tipo))
+                    //        listaFiltrada.Add(item);
+                    //    if(precio >= 0)
+                    //    {
+                    //        if (selector == "Menor a" && item._precio <= precio)
+                    //            listaFiltrada.Add(item);
+                    //        else if (selector == "Mayor a" && item._precio >= precio)
+                    //            listaFiltrada.Add(item);
+                    //        else if (item._precio == precio)
+                    //            listaFiltrada.Add(item);
+                    //    }
+                    //}
+
+                    if (listaFiltrada.Count > 0)
+                        Session.Add("cantidadFiltrados", listaFiltrada.Count);
+                    else
+                        Session.Add("cantidadFiltrados", 0);
+
+                    count = (int)Session["cantidadFiltrados"];
                     rep_ListaDefautl.DataSource = listaFiltrada;
                     rep_ListaDefautl.DataBind();
                 }
@@ -167,6 +184,7 @@ namespace Carrito_de_Compras
         //Boton Resetear Filtro
         protected void btnResetFiltro_Click(object sender, EventArgs e)
         {
+            count = (int)Session["cantidadFiltrados"];
             Response.Redirect("Default.aspx", false);
         }
     }//
