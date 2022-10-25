@@ -5,17 +5,17 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container text-center">
+    <div class="container text-center mt-5">
         <div style="margin-bottom: 10px">
             <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%:Session["cantidad"] %></span></h4>
-            <div class="d-grid gap-2 col-6 mx-auto">
+            <div class="d-grid gap-2 col-6 mx-auto mb-5">
                 <asp:LinkButton ID="lbtLinkCarrito" Text="Ir a Carrito" CssClass="btn btn-primary" OnClick="lbtLinkCarrito_Click" runat="server" />
             </div>
         </div>
 
         <!-- Filtros Busqueda -->
-        <div>
-            <table class="table table-borderless">
+        <div class="p-5" style="background-color: #0b0034; border-radius: 2em;">
+            <%--<table class="table table-borderless">
                 <thead>
                     <h3>Filtros</h3>
                 </thead>
@@ -25,7 +25,7 @@
                             <h4>Marca:</h4>
                         </td>
                         <td colspan="2">
-                            <asp:DropDownList ID="dwlMarca" CssClass="form-control"  runat="server"></asp:DropDownList>
+                            
                         </td>
                     </tr>
                     <tr>
@@ -54,10 +54,37 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
-            <div>
-                <asp:Button ID="btnFiltrar" Text="Filtrar" OnClick="btnFiltrar_Click" runat="server" CssClass="btn btn-primary" />
-                <asp:Button ID="btnResetFiltro" Text="Borrar filtro" OnClick="btnResetFiltro_Click" runat="server" CssClass="btn btn-primary" />
+            </table>--%>
+                <div class="row">
+                    <div class="col-1 ms-5">
+                        <h4>Marca:</h4>
+                    </div>
+                    <div class="col-2 me-2">
+                        <asp:DropDownList ID="dwlMarca" CssClass="form-control"  runat="server"></asp:DropDownList>
+                    </div>
+                    <div class="col-1 ms-2">
+                        <h4>Tipo:</h4>
+                    </div>
+                    <div class="col-2">
+                        <asp:DropDownList ID="dwlTipo" CssClass="form-control"  runat="server"></asp:DropDownList>
+                    </div>
+                    <div class="col-1 ms-2">
+                        <h4>Precio:</h4>
+                    </div>
+                    <div class="col-2">
+                        <asp:TextBox CssClass="form-control" ID="txbPrecio" runat="server" />
+                    </div>
+                    <div class="col-2">
+                        <asp:DropDownList ID="dwlSelector" CssClass="form-control"  runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+            <div class="row mt-5 justify-content-center">
+                <div class="col-4">
+                    <asp:Button ID="btnFiltrar" Text="Filtrar" OnClick="btnFiltrar_Click" runat="server" CssClass="btn btn-primary col-4" />
+                </div>
+                <div class="col-4">
+                    <asp:Button ID="btnResetFiltro" Text="Borrar filtro" OnClick="btnResetFiltro_Click" runat="server" CssClass="btn btn-primary col-4" />
+                </div>
             </div>
         </div>
         <hr />
