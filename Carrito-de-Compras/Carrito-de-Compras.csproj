@@ -72,6 +72,7 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="iconoCarrito.png" />
     <Content Include="Lista.aspx" />
     <Content Include="Models\css\bootstrap-grid.css" />
     <Content Include="Models\css\bootstrap-grid.min.css" />

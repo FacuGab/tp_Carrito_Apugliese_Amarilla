@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using Dominio;
 
 namespace Negocio
@@ -207,6 +208,10 @@ namespace Negocio
                 }
                 return _listaArticulos;
             }
+            catch(SqlException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -245,18 +250,19 @@ namespace Negocio
                 filTipo = "%";
             if(string.IsNullOrEmpty(filMarca))
                 filMarca = "%";
+            fil = decimal.ToInt32(fil);
 
             if (cri == "Mayor a")
             {
                 filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filTipo}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio > {fil}";
             }
-            else if (cri == "Menor a")
-            {
-                filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filTipo}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio < {fil}";
+           else if (cri == "Meno a")
+           {
+               filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filTipo}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio < {fil}";
             }
-            else
-            {
-                filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filTipo}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio = {fil}";
+           else
+           {
+              filtroFinal = $"SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE '{filTipo}' AND m.Descripcion LIKE '{filMarca}' AND a.Precio = {fil}";
             }
             return filtroFinal;
         }

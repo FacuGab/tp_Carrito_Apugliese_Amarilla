@@ -10,8 +10,10 @@
         <h1>Lista Carrito</h1>
         <h2>Su Lista:</h2>
         <h3>Cantidad de articulos: <%:Session["cantidad"] %></h3>
-        <h3>Cantidad de obj en Session: <%:Session.Count %></h3>
         <h3>Monto Total:<asp:Label ID="lblTotal" Text=" $" runat="server" /></h3>
+        <div class="d-grid gap-2 col-6 mx-auto mb-5">
+                <asp:LinkButton ID="btnVolverLista" Text="Volver a Lista" CssClass="btn btn-primary" OnClick="btnVolverLista_Click" runat="server" />
+        </div>
 
         <table class="table table-striped">
             <tbody>

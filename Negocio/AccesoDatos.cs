@@ -25,7 +25,7 @@ namespace Negocio
             // sgundo server por defecto ConnStr2 = .\\SQLEXPRESS
             //string strCon = ConfigurationManager.ConnectionStrings["ConnStr1"].ToString();
             //cadenaConexion = strCon;
-            cadenaConexion = "server=.\\SQLEXPRESS01;database = CATALOGO_DB; integrated security = true";
+            //cadenaConexion = "server=.\\SQLEXPRESS01;database = CATALOGO_DB; integrated security = true";
             try
             {
                 _conexion = new SqlConnection(cadenaConexion);

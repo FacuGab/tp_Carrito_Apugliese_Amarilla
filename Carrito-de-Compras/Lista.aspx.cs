@@ -140,5 +140,10 @@ namespace Carrito_de_Compras
                 Response.Redirect("Lista.aspx", false);
             }
         }
+
+        protected void btnVolverLista_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx", false);
+        }
     }//
 }

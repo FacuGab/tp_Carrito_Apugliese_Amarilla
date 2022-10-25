@@ -24,6 +24,15 @@ namespace Carrito_de_Compras
         protected global::System.Web.UI.WebControls.Label lblTotal;
 
         /// <summary>
+        /// btnVolverLista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnVolverLista;
+
+        /// <summary>
         /// rep_repetidor control.
         /// </summary>
         /// <remarks>

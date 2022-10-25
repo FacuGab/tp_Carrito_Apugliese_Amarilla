@@ -41,9 +41,9 @@ namespace Carrito_de_Compras
                 dwlMarca.DataSource = ls;
                 dwlMarca.DataBind();
 
-                dwlSelector.Items.Insert(0, "Igual a");
-                dwlSelector.Items.Insert(1, "Mayor a");
-                dwlSelector.Items.Insert(2, "Menor a");
+                dwlSelector.Items.Insert(0, "Mayor a");
+                dwlSelector.Items.Insert(1, "Menor a");
+                dwlSelector.Items.Insert(2, "Igual a");
 
                 rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
                 rep_ListaDefautl.DataBind();
@@ -139,6 +139,11 @@ namespace Carrito_de_Compras
                             PageUtils.Mensaje(this, "El precio ingresado no es valido");
                             return;
                         }
+                        else if(precio < 0)
+                        {
+                            PageUtils.Mensaje(this, "El precio ingresado no es valido");
+                            return;
+                        }
                         else
                         {
                             precio = decimal.Parse(strPrecio);
@@ -147,24 +152,6 @@ namespace Carrito_de_Compras
                     }
 
                     listaFiltrada = negocioFiltro.busquedaFiltrada(marca, tipo, precio, selector);
-                    //foreach (Articulo item in listaArticulos)
-                    //{ 
-                        
-                    //    if(item._marca._Descripcion == marca && !string.IsNullOrEmpty(marca))
-                    //        listaFiltrada.Add(item);
-                    //    if (item._categoria._Descripcion == tipo && !string.IsNullOrEmpty(tipo))
-                    //        listaFiltrada.Add(item);
-                    //    if(precio >= 0)
-                    //    {
-                    //        if (selector == "Menor a" && item._precio <= precio)
-                    //            listaFiltrada.Add(item);
-                    //        else if (selector == "Mayor a" && item._precio >= precio)
-                    //            listaFiltrada.Add(item);
-                    //        else if (item._precio == precio)
-                    //            listaFiltrada.Add(item);
-                    //    }
-                    //}
-
                     if (listaFiltrada.Count > 0)
                         Session.Add("cantidadFiltrados", listaFiltrada.Count);
                     else

@@ -72,7 +72,7 @@
                         <h4>Precio:</h4>
                     </div>
                     <div class="col-2">
-                        <asp:TextBox CssClass="form-control" ID="txbPrecio" runat="server" />
+                        <asp:TextBox Text="0" CssClass="form-control" ID="txbPrecio" runat="server" />
                     </div>
                     <div class="col-2">
                         <asp:DropDownList ID="dwlSelector" CssClass="form-control"  runat="server"></asp:DropDownList>

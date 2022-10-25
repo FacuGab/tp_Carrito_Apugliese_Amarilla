@@ -26,7 +26,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #000 !important; margin-bottom:10px">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="Default.aspx">
-                        <img src="https://play-lh.googleusercontent.com/Lpo_Y1AVuKdVrjzYD4xy1Y8lP-U3DE3W9gqFgCAXw-LKO1dPmCUKwWt27fLXs3k5--k" alt="Logo del carrito" style="height: 2.5em;" /></a>
+                        <img src="iconoCarrito.png" alt="Logo del carrito" style="height: 2.5em;" onerror="this.src'https://play-lh.googleusercontent.com/Lpo_Y1AVuKdVrjzYD4xy1Y8lP-U3DE3W9gqFgCAXw-LKO1dPmCUKwWt27fLXs3k5--k'" /></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
