@@ -58,7 +58,6 @@ namespace Negocio
 
                     _articulo.redondear(2);
                     _listaArticulos.Add(_articulo);
-                    CantArt++;
                 }
             }
             catch (Exception ex)
@@ -69,6 +68,7 @@ namespace Negocio
             {
                 _accesoDatos.cerrarConexion();
             }
+            CantArt = _listaArticulos.Count;
             return _listaArticulos;
         }
 
